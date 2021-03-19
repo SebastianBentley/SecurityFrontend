@@ -1,5 +1,6 @@
 import loginFacade from "./apiFacade.js"
 import React, { useState, useEffect } from "react";
+import ReCAPTCHA from "react-google-recaptcha"
 
 
 function DoLogin({ loggedIn, setLoggedIn, goHome }) {
@@ -29,11 +30,11 @@ function DoLogin({ loggedIn, setLoggedIn, goHome }) {
                 <div><LogIn login={login} /><p>{errorMsg}</p>
                 </div>
             ) : (
-                    <div>
-                        <LoggedIn />
-                        <button onClick={logout}>Logout</button>
-                    </div>
-                )
+                <div>
+                    <LoggedIn />
+                    <button onClick={logout}>Logout</button>
+                </div>
+            )
         } </div>
     )
 }
@@ -42,14 +43,19 @@ function LogIn({ login }) {
     const init = {
         username: "",
         password: ""
-    }; 
+    };
 
     const [loginCredentials, setLoginCredentials] = useState(init);
-
+    const [cptcnfrm, setCptcnfrm] = useState(false);
+    const [loginErrorMsg, setLoginErrorMsg] = useState("");
     const performLogin = (evt) => {
         evt.preventDefault();
-        localStorage.setItem("username", loginCredentials.username);
-        login(loginCredentials.username, loginCredentials.password);
+        if (cptcnfrm) { 
+            localStorage.setItem("username", loginCredentials.username);
+            login(loginCredentials.username, loginCredentials.password);
+        } else {
+            setLoginErrorMsg("hehe prøv igen :0)")
+        }
     }
 
     const onChange = (evt) => {
@@ -59,14 +65,30 @@ function LogIn({ login }) {
         })
     }
 
+    const confirmCaptcha = () => {
+        setCptcnfrm(true);
+    }
+    const recaptchaRef = React.createRef();
+    const onSubmit = () => {
+        const recaptchaValue = recaptchaRef.current.getValue();
+        this.props.onSubmit(recaptchaValue);
+    }
+
     return (
         <div>
             <h2>Login</h2>
-            <form onChange={onChange}>
+            <form onSubmit={onSubmit} onChange={onChange}>
                 <input placeholder="User Name" id="username" />
                 <input placeholder="Password" id="password" />
+                <ReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey="6Ld77oUaAAAAADoXeVdhtPWc6WlwkbxKSWsm2T8Q"
+                        onChange={confirmCaptcha}
+                    />
                 <button onClick={performLogin}>Login</button>
-            </form>
+                   
+                </form>
+                {loginErrorMsg} 
         </div>
     )
 
