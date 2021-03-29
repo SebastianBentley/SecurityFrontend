@@ -1,12 +1,14 @@
 import './App.css';
-import React, { useState, useEffect } from "react";
-import DoLogin from "./login.js"
+import "bootstrap/dist/css/bootstrap.css";
+import React, { useState } from "react";
+import DoLogin from "./pages/Login.js"
+import Home from "./pages/Home.js"
+import NoMatch from "./components/NoMatch.js"
+import Header from "./components/NavBar.js"
 
 import {
     Switch,
     Route,
-    NavLink,
-    useLocation,
     useHistory
 } from "react-router-dom";
 
@@ -39,48 +41,6 @@ function App() {
         </div>
 
     );
-}
-
-function Header({ isLoggedIn, loginMsg }) {
-    return (
-        <ul className="header">
-            <li>
-                <NavLink exact activeClassName="active" to="/">Home</NavLink>
-            </li>
-
-            <li>
-                <NavLink activeClassName="active" to="/login">
-                    {loginMsg}</NavLink>
-            </li>
-
-        </ul>
-
-    )
-}
-
-
-function Home() {
-
-    return (
-        <div>
-            <h1>Practial Info</h1>
-        </div>
-    )
-}
-
-
-
-function NoMatch() {
-    let location = useLocation();
-    return (
-        <div>
-            <h3>No match for
-                <code>{
-                    location.pathname
-                }</code>
-            </h3>
-        </div>
-    )
 }
 
 export default App;
