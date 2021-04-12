@@ -1,0 +1,25 @@
+.modal_header {
+    background-color: #0d0c1d;
+  }
+  .close {
+    color: white;
+  }
+  
+  .modal_footer,
+  .modal_header {
+    background-color: #0d0c1d;
+  }
+  
+  .input {
+    width: 100%;
+    margin-bottom: 5%;
+  }
+  
+  .login_input {
+    width: 75%;
+    margin-bottom: 2%;
+  }
+  
+  h3 {
+    color: #0d0c1d;
+  }
