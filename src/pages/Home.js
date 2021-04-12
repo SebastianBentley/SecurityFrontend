@@ -1,5 +1,6 @@
 import apiFacade from "../api/postFacade";
 import React, { useState, useEffect } from "react";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 export default function Home() {
 
@@ -24,12 +25,15 @@ export default function Home() {
     setUserPost("");
   }
 
+
+
   const toShow = dataFromServer ? (
     <div>
       {dataFromServer.length > 0 ?
         dataFromServer.map((m, index) => (
-          <div key={index}>
+          <div key={index} >
             <p>{m.post} {m.username}</p>
+            <button type="submit" onClick={() => apiFacade.deletePost(m.id)} className="btn btn-danger" ><DeleteIcon /></button>
           </div>
         )) : null}
     </div>
