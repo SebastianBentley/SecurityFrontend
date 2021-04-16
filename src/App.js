@@ -5,12 +5,7 @@ import DoLogin from "./pages/Login.js"
 import Home from "./pages/Home.js"
 import NoMatch from "./components/NoMatch.js"
 import Header from "./components/NavBar.js"
-
-import {
-    Switch,
-    Route,
-    useHistory
-} from "react-router-dom";
+import { Switch,Route,useHistory} from "react-router-dom";
 
 
 function App() {
@@ -27,7 +22,7 @@ function App() {
                 isLoggedIn={isLoggedIn} />
             <Switch>
                 <Route exact path="/">
-                    <Home />
+                    <Home loggedIn={isLoggedIn} />
                 </Route>
 
                 <Route exact path="/login">

@@ -1,17 +1,20 @@
 import apiFacade from "../api/postFacade";
 import React, { useState, useEffect } from "react";
 import DeleteIcon from '@material-ui/icons/Delete';
+import jwt_decode from "jwt-decode";
+import loginFacade from "../api/userFacade.js"
 
-export default function Home() {
 
+export default function Home({loggedIn}) {
   const [dataFromServer, setDataFromServer] = useState([]);
   const [userPost, setUserPost] = useState("");
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     apiFacade.getPosts().then((data) => {
       setDataFromServer(data);
     })
-  }, [handleSubmit]);
+  }, [dataFromServer]);
 
   function handlePostChange(event) {
     event.preventDefault();
@@ -25,7 +28,13 @@ export default function Home() {
     setUserPost("");
   }
 
-
+  useEffect(() => {
+    if (loggedIn) {
+      const token = loginFacade.getToken();
+      const decodedToken = jwt_decode(token);
+      setUser(decodedToken);
+    }
+  }, [loggedIn]);
 
   const toShow = dataFromServer ? (
     <div>
@@ -33,7 +42,7 @@ export default function Home() {
         dataFromServer.map((m, index) => (
           <div key={index} >
             <p>{m.post} {m.username}</p>
-            <button type="submit" onClick={() => apiFacade.deletePost(m.id)} className="btn btn-danger" ><DeleteIcon /></button>
+            {<button type="submit" onClick={() => apiFacade.deletePost(m.id)} className="btn btn-danger" ><DeleteIcon /></button>}
           </div>
         )) : null}
     </div>
@@ -54,7 +63,6 @@ export default function Home() {
               id="exampleFormControlTextarea1"
               rows="3"
               onChange={handlePostChange}
-              value={userPost}
             ></textarea>
           </div>
           <button type="button" className="text-center btn btn-success" onClick={handleSubmit}>Post</button>
