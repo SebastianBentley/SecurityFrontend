@@ -52,7 +52,6 @@ function LogIn({ login }) {
     const performLogin = (evt) => {
         evt.preventDefault();
         if (cptcnfrm) { 
-            localStorage.setItem("username", loginCredentials.username);
             login(loginCredentials.username, loginCredentials.password);
         } else {
             setLoginErrorMsg("hehe prøv igen :0)")

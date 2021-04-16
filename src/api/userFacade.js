@@ -39,7 +39,6 @@ function apiFacade() { /* Insert utility-methods from a latter step (d) here (RE
         var base64Url = getToken().split('.')[1];
         var base64 = base64Url.replace('-', '+').replace('_', '/');
         if (JSON.parse(atob(base64)).roles === "user") {
-            console.log(JSON.parse(atob(base64)))
             return fetch(URL + "/api/user/user", options).then(handleHttpErrors);
         } else {
             return fetch(URL + "/api/user/admin", options).then(handleHttpErrors);
