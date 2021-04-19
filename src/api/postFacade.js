@@ -24,12 +24,27 @@ function getPosts() {
     });
 }
 
+function getCategoryPosts(category) {
+  return fetch(SERVER_URL + "/api/post/category/" + category)
+    .then(handleHttpErrors)
+    .catch((err) => {
+      console.log(err)
+      if (err.status) {
+        err.fullError.then((e) => console.log(e.message));
+      } else {
+        console.log("Network error");
+      }
+    });
+}
 
-function addPost(content, username) {
+
+function addPost(content, username, category) {
   const options = makeOptions("POST", true, {
     username,
-    content
+    content,
+    category
   });
+
   return fetch(SERVER_URL + "/api/post/add-post", options)
     .then(handleHttpErrors)
     .catch((err) => {
@@ -61,6 +76,7 @@ function deletePost(id) {
 
 const postFacade = {
   getPosts,
+  getCategoryPosts,
   addPost,
   deletePost,
 };

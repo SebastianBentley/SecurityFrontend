@@ -1,11 +1,12 @@
 import './App.css';
 import "bootstrap/dist/css/bootstrap.css";
 import React, { useState } from "react";
-import DoLogin from "./pages/Login.js"
-import Home from "./pages/Home.js"
+import DoLogin from "./pages/Login.js";
+import Home from "./pages/Home.js";
+import Category from "./pages/Category.js";
 import NoMatch from "./components/NoMatch.js"
-import Header from "./components/NavBar.js"
-import { Switch,Route,useHistory} from "react-router-dom";
+import Header from "./components/NavBar.js";
+import { Switch, Route, useHistory } from "react-router-dom";
 
 
 function App() {
@@ -23,6 +24,10 @@ function App() {
             <Switch>
                 <Route exact path="/">
                     <Home loggedIn={isLoggedIn} />
+                </Route>
+
+                <Route exact path="/categories">
+                    <Category loggedIn={isLoggedIn} />
                 </Route>
 
                 <Route exact path="/login">
