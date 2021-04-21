@@ -1,9 +1,8 @@
 import apiFacade from "../api/postFacade";
 import React, { useState, useEffect } from "react";
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from "@material-ui/icons/Delete";
 import jwt_decode from "jwt-decode";
 import loginFacade from "../api/userFacade.js";
-
 
 export default function Home({ loggedIn }) {
   const [dataFromServer, setDataFromServer] = useState([]);
@@ -11,11 +10,10 @@ export default function Home({ loggedIn }) {
   const [user, setUser] = useState("");
   const [category, setCategory] = useState("sport");
 
-
   useEffect(() => {
     apiFacade.getPosts().then((data) => {
       setDataFromServer(data);
-    })
+    });
   }, []);
 
   function handlePostChange(event) {
@@ -27,10 +25,10 @@ export default function Home({ loggedIn }) {
   function handleDelete() {
     apiFacade.getPosts().then((data) => {
       setDataFromServer(data);
-    })
+    });
   }
 
-  function handleCategory(event){
+  function handleCategory(event) {
     event.preventDefault();
     setCategory(event.target.value);
   }
@@ -40,7 +38,7 @@ export default function Home({ loggedIn }) {
     apiFacade.addPost(userPost, user.username, category).then(() => {
       apiFacade.getPosts().then((data) => {
         setDataFromServer(data);
-      })
+      });
     });
     setUserPost("");
   }
@@ -54,18 +52,34 @@ export default function Home({ loggedIn }) {
   }, [loggedIn]);
 
   const toShow = dataFromServer ? (
-    <div> {
-      dataFromServer.length > 0 ? dataFromServer.map((m, index) => (
-        <div key={index}>
-          <p>{m.post}{m.username}{m.date}</p>
-          {
-            user.roles === "admin" ? <button type="submit"
-              onClick={() => apiFacade.deletePost(m.id).then(handleDelete)}
-              className="btn btn-danger"><DeleteIcon /></button> : ""
-          }
-        </div>)) : null}
-    </div>) : ("loading...")
-
+    <div>
+      {" "}
+      {dataFromServer.length > 0
+        ? dataFromServer.map((m, index) => (
+            <div key={index}>
+              <p>
+                {m.post}
+                {m.username}
+                {m.date}
+              </p>
+              {user.roles === "admin" ? (
+                <button
+                  type="submit"
+                  onClick={() => apiFacade.deletePost(m.id).then(handleDelete)}
+                  className="btn btn-danger"
+                >
+                  <DeleteIcon />
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
+          ))
+        : null}
+    </div>
+  ) : (
+    "loading..."
+  );
 
   return (
     <div className="container-fluid padding">
@@ -76,9 +90,13 @@ export default function Home({ loggedIn }) {
           <hr></hr>
           <h4 className="mt-5">Login to post</h4>
           <div className="form-group">
-            <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"
+            <textarea
+              className="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
               onChange={handlePostChange}
-              value={userPost}></textarea>
+              value={userPost}
+            ></textarea>
           </div>
           <select name="Category" id="category" onClick={handleCategory}>
             <option value="sport">Sport</option>
@@ -87,8 +105,13 @@ export default function Home({ loggedIn }) {
             <option value="wealth">Wealth</option>
             <option value="gaming">Gaming</option>
           </select>
-          <button type="button" className="text-center btn btn-success"
-            onClick={handleSubmit}>Post</button>
+          <button
+            type="button"
+            className="text-center btn btn-success"
+            onClick={handleSubmit}
+          >
+            Post
+          </button>
           {toShow}
           <div className="col-3"></div>
         </div>

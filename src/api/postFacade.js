@@ -1,16 +1,12 @@
 import SERVER_URL from "../utils/settings";
 
-
-
 const getToken = () => {
-  return localStorage.getItem('jwtToken')
-}
+  return localStorage.getItem("jwtToken");
+};
 const loggedIn = () => {
   const loggedIn = getToken() != null;
   return loggedIn;
-}
-
-
+};
 
 function getPosts() {
   return fetch(SERVER_URL + "/api/post/all")
@@ -28,7 +24,7 @@ function getCategoryPosts(category) {
   return fetch(SERVER_URL + "/api/post/category/" + category)
     .then(handleHttpErrors)
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       if (err.status) {
         err.fullError.then((e) => console.log(e.message));
       } else {
@@ -37,18 +33,17 @@ function getCategoryPosts(category) {
     });
 }
 
-
 function addPost(content, username, category) {
   const options = makeOptions("POST", true, {
     username,
     content,
-    category
+    category,
   });
 
   return fetch(SERVER_URL + "/api/post/add-post", options)
     .then(handleHttpErrors)
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       if (err.status) {
         err.fullError.then((e) => console.log(e.message));
       } else {
@@ -59,12 +54,12 @@ function addPost(content, username, category) {
 
 function deletePost(id) {
   const options = makeOptions("POST", true, {
-    id
+    id,
   });
   return fetch(SERVER_URL + "/api/admin/delete-post", options)
     .then(handleHttpErrors)
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       if (err.status) {
         err.fullError.then((e) => console.log(e.message));
       } else {
@@ -73,12 +68,25 @@ function deletePost(id) {
     });
 }
 
+function getUserPosts(name) {
+  return fetch(SERVER_URL + "/api/post/userpost/" + name)
+    .then(handleHttpErrors)
+    .catch((err) => {
+      console.log(err);
+      if (err.status) {
+        err.fullError.then((e) => console.log(e.message));
+      } else {
+        console.log("Network error");
+      }
+    });
+}
 
 const postFacade = {
   getPosts,
   getCategoryPosts,
   addPost,
   deletePost,
+  getUserPosts,
 };
 
 const makeOptions = (method, addToken, body) => {
@@ -86,9 +94,9 @@ const makeOptions = (method, addToken, body) => {
     method: method,
     headers: {
       "Content-type": "application/json",
-      'Accept': 'application/json'
-    }
-  }
+      Accept: "application/json",
+    },
+  };
   if (addToken && loggedIn()) {
     opts.headers["x-access-token"] = getToken();
   }
@@ -96,7 +104,7 @@ const makeOptions = (method, addToken, body) => {
     opts.body = JSON.stringify(body);
   }
   return opts;
-}
+};
 
 function handleHttpErrors(res) {
   if (!res.ok) {
