@@ -40,8 +40,8 @@ export default function Categories({ loggedIn }) {
                 <div key={index}>
                 <div style={{ border: "1px solid grey", padding: "10px", borderRadius: "20px", marginTop: "15px"}}>
                 <div style={{ float: "right"}}>{m.date}</div>
-                <div style={{ float: "left", fontWeight: "bold", color: "#009", marginBottom: "5px"}}>{m.username}</div>
-                <div style={{ marginLeft: "30px", color: "#009"}}>{m.post}</div>
+                <div style={{ float: "left", marginBottom: "5px"}}>Post by: {m.username}</div>
+                <div style={{ marginLeft: "30px"}}>{m.post}</div>
                 </div>
                     {
                         user.roles === "admin" ? <button type="submit"
