@@ -1,5 +1,5 @@
 import loginFacade from "../api/userFacade.js";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import CreateModal from "../components/RegisterUser";
 import Profile from "../pages/Profile";
@@ -37,7 +37,13 @@ function DoLogin({ loggedIn, setLoggedIn, goHome }) {
       ) : (
         <div>
           <LoggedIn loggedIn={loggedIn} />
-          <button onClick={logout}>Logout</button>
+          <div className="row">
+          <div className="col-3"></div>
+          <div className="col-6 text-center">
+          <button className="mt-5 btn btn-primary" onClick={logout}>Logout</button>
+          </div>
+          <div className="col-3"></div>
+        </div>
         </div>
       )}{" "}
     </div>

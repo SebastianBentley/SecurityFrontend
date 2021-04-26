@@ -38,11 +38,15 @@ export default function Categories({ loggedIn }) {
         <div> {
             dataFromServer.length > 0 ? dataFromServer.map((m, index) => (
                 <div key={index}>
-                    <p>{m.post}{m.username}{m.date}</p>
+                <div style={{ border: "1px solid grey", padding: "10px", borderRadius: "20px", marginTop: "15px"}}>
+                <div style={{ float: "right"}}>{m.date}</div>
+                <div style={{ float: "left", fontWeight: "bold", color: "#009", marginBottom: "5px"}}>{m.username}</div>
+                <div style={{ marginLeft: "30px", color: "#009"}}>{m.post}</div>
+                </div>
                     {
                         user.roles === "admin" ? <button type="submit"
                             onClick={() => apiFacade.deletePost(m.id).then(handleDelete)}
-                            className="btn btn-danger"><DeleteIcon /></button> : ""
+                            className="mt-2 btn btn-danger"><DeleteIcon /></button> : ""
                     }
                 </div>)) : null}
         </div>) : ("loading...")

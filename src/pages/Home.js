@@ -4,6 +4,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import jwt_decode from "jwt-decode";
 import loginFacade from "../api/userFacade.js";
 
+
 export default function Home({ loggedIn }) {
   const [dataFromServer, setDataFromServer] = useState([]);
   const [userPost, setUserPost] = useState("");
@@ -57,16 +58,16 @@ export default function Home({ loggedIn }) {
       {dataFromServer.length > 0
         ? dataFromServer.map((m, index) => (
             <div key={index}>
-              <p>
-                {m.post}
-                {m.username}
-                {m.date}
-              </p>
+              <div style={{ border: "1px solid grey", padding: "10px", borderRadius: "20px", marginTop: "15px"}}>
+                <div style={{ float: "right"}}>{m.date}</div>
+                <div style={{ float: "left", marginBottom: "5px"}}>Post by: {m.username}</div>
+                <div style={{ marginLeft: "30px"}}>{m.post}</div>
+                </div>
               {user.roles === "admin" ? (
                 <button
                   type="submit"
                   onClick={() => apiFacade.deletePost(m.id).then(handleDelete)}
-                  className="btn btn-danger"
+                  className="btn btn-danger mt-2"                 
                 >
                   <DeleteIcon />
                 </button>
@@ -107,7 +108,7 @@ export default function Home({ loggedIn }) {
           </select>
           <button
             type="button"
-            className="text-center btn btn-success"
+            className="text-center btn btn-primary ml-2"
             onClick={handleSubmit}
           >
             Post
