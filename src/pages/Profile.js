@@ -8,6 +8,7 @@ function Profile({ loggedIn }) {
   const [dataFromServer, setDataFromServer] = useState("Loading...");
   const [dataFromServerPost, setDataFromServerPost] = useState([]);
   const [user, setUser] = useState("");
+  const [errormsg, setErrormsg] = useState("");
 
   //Firebase
   const [image, setImage] = useState(null);
@@ -31,7 +32,7 @@ function Profile({ loggedIn }) {
         setProgress(progress);
       },
       (error) => {
-        console.log(error);
+        setErrormsg("Image must be a png/jpg and size must be below 5 MB")
       },
       () => {
         storage
@@ -70,7 +71,6 @@ function Profile({ loggedIn }) {
         .getDownloadURL()
         .then((url) => {
           setUrl(url);
-          console.log(url);
         })
         .catch((error) => {         
             setUrl("https://firebasestorage.googleapis.com/v0/b/image-react-52fcf.appspot.com/o/images%2Funnamed.png?alt=media&token=766f2435-cf77-40bf-bdb0-22aad42d790e")
@@ -119,6 +119,7 @@ function Profile({ loggedIn }) {
                 <br/>
                 <button className="mt-2" onClick={handleUpload}>Upload</button>
                 <progress className="text-center" value={progress} max="100" />
+                <p>{errormsg}</p>
               </div>
             </div>
             <div className="col-3"></div>
