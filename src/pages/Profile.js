@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { storage } from "../firebase";
 import loginFacade from "../api/userFacade.js";
+import CreatePasswordModal from "../components/ChangePassword.js"
 
 function Profile({ loggedIn }) {
   const [dataFromServer, setDataFromServer] = useState("Loading...");
@@ -120,6 +121,7 @@ function Profile({ loggedIn }) {
                 <button className="mt-2" onClick={handleUpload}>Upload</button>
                 <progress className="text-center" value={progress} max="100" />
                 <p>{errormsg}</p>
+                <CreatePasswordModal />
               </div>
             </div>
             <div className="col-3"></div>

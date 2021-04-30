@@ -1,3 +1,3 @@
-const URL = "http://localhost:8080/jpareststarter";
+const URL = "https://sebsen.dk/tomcat/Security-startcode";
 
 export default URL;

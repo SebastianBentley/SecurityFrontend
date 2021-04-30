@@ -1,5 +1,5 @@
 .modal_header {
-    background-color: #0d0c1d;
+    background-color: whitesmoke;
   }
   .close {
     color: white;
@@ -7,7 +7,7 @@
   
   .modal_footer,
   .modal_header {
-    background-color: #0d0c1d;
+    background-color: whitesmoke;
   }
   
   .input {

@@ -89,7 +89,7 @@ function LogIn({ login }) {
       <h2>Login</h2>
       <form onSubmit={onSubmit} onChange={onChange}>
         <input placeholder="User Name" id="username" />
-        <input placeholder="Password" id="password" />
+        <input placeholder="Password" id="password" type="password"/>
         <ReCAPTCHA
           ref={recaptchaRef}
           sitekey="6Ld77oUaAAAAADoXeVdhtPWc6WlwkbxKSWsm2T8Q"
