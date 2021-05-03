@@ -1,3 +1,4 @@
-App {
-    background-color: red;
-}
+body {
+    --primary-color: #2B4141;
+    --secondary-color: #9DB5B2;
+  }

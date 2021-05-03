@@ -39,7 +39,7 @@ function CreateModal() {
                 <button
                     color="primary"
                     size="m"
-                    className="mr-auto btn btn-warning"
+                    className="mr-auto btn btn-dark"
                     onClick={handleShow}
                 >
                     Register
@@ -67,7 +67,7 @@ function CreateModal() {
                     <button
                         color="primary"
                         size="m"
-                        className="modal_button"
+                        className="modal_button btn btn-dark"
                         onClick={handleClose}
                     >
                         Close
@@ -75,7 +75,7 @@ function CreateModal() {
                     <button
                         color="primary"
                         size="m"
-                        className="mr-auto"
+                        className="mr-auto btn btn-dark"
                         onClick={createUser}
                     >
                         Save Changes and register

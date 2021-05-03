@@ -72,7 +72,7 @@ export default function Categories({ loggedIn }) {
             <div className="row">
                 <div className="col-3"></div>
                 <div className="col-6 text-center">
-                    <h2 className="mt-5">Forum posts</h2>
+                    <h2 className="mt-5">What do you want to see?</h2>
                     <select className="btn btn-light rightBtn" name="Category" id="category" onClick={handleCategory}>
                         <option value="sport">Sport</option>
                         <option value="news">News</option>

@@ -1,3 +1,9 @@
+:root {
+  --primary-color: #2B4141;
+  --secondary-color: #9DB5B2;
+  --post-color: #e2eeed;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -22,11 +28,18 @@ em {
 }
 
 .background {
-  background-color: #DDDDDD;
+  background-color: white;
   min-height: 100vh;
   padding: 0;
   margin: 0;
   
+}
+
+.logo {
+  height: 100%;
+  width: 100%;
+  padding: 16px 16px;
+  padding-top: 20px;
 }
 
 .title {
@@ -40,7 +53,8 @@ em {
 }
 
 .newcaptcha {
-  padding: 50px;
+  text-align: center;
+  display: inline-block;
 }
 
 .post {
@@ -48,14 +62,26 @@ em {
   margin-top: 15px;
   width: 100%;
   height: 100%;
+  border-style: outset;
+  border-color: #bec6ca;
+  border-width: 1px;
   display: inline-block;
-  background-color: white;
+  background-color: var(--post-color);
   word-wrap: break-word;
 }
 
+
 .postBox {
   padding: 15px;
-  background-color: #818A91;
+  border-radius: 15px 50px;
+  border-width: 100px;
+  background-color: var(--secondary-color);
+}
+
+.txtArea {
+  resize: none;
+  background-color: transparent;
+  border-color: none;
 }
 
 .postUsername {
@@ -78,6 +104,13 @@ em {
   margin-left: 5px;
 }
 
+.errorMsg {
+  background-color: red;
+  color: white;
+  border-radius: 15px 50px;
+  text-align: center;
+}
+
 
 
 ul.header {
@@ -85,7 +118,7 @@ ul.header {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #777777;
+  background-color: var(--primary-color);
   float: left;
   margin-right: 5%;
   position: fixed;
@@ -93,6 +126,10 @@ ul.header {
   min-height: 100vh;
   height: 0;
   
+ }
+
+ .navIcon {
+   float: left;
  }
  
 ul.header li {
@@ -108,5 +145,5 @@ ul.header li {
  
   text-decoration: none;
  }
- ul.header li a:hover:not(.active) { background-color: #55595C;}
- .active { background-color: #373A3C}
+ ul.header li a:hover:not(.active) { background-color: var(--secondary-color);}
+ .active { background-color: var(--secondary-color)}

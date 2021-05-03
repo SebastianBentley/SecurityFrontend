@@ -105,7 +105,7 @@ export default function Home({ loggedIn }) {
               <h4>A penny for your thots?</h4>
               <div className="form-group">
                 <textarea
-                  className="form-control"
+                  className="form-control txtArea"
                   id="exampleFormControlTextarea1"
                   rows="3"
                   onChange={handlePostChange}

@@ -38,7 +38,7 @@ function CreatePasswordModal() {
                 <button
                     color="primary"
                     size="m"
-                    className="mr-auto"
+                    className="mr-auto btn btn-dark"
                     onClick={handleShow}
                 >
                     Change Password
@@ -62,7 +62,7 @@ function CreatePasswordModal() {
                     <button
                         color="primary"
                         size="m"
-                        className="modal_button"
+                        className="modal_button btn btn-dark"
                         onClick={handleClose}
                     >
                         Close
@@ -70,7 +70,7 @@ function CreatePasswordModal() {
                     <button
                         color="primary"
                         size="m"
-                        className="mr-auto"
+                        className="mr-auto btn btn-dark"
                         onClick={changePassword}
                     >
                         Save Changes

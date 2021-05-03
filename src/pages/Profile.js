@@ -85,13 +85,11 @@ function Profile({ loggedIn }) {
       {dataFromServerPost.length > 0
         ? dataFromServerPost.map((m, index) => (
             <div key={index}>
-              <p>
-              <div style={{ border: "1px solid grey", padding: "10px", borderRadius: "20px", marginTop: "15px"}}>
+              <div className="post"> 
+                <div className="postUsername">{m.username}</div>
+                <div className="postText">{m.post}</div>
                 <div style={{ float: "right"}}>{m.date}</div>
-                <div style={{ float: "left", marginBottom: "5px"}}>Post by: {m.username}</div>
-                <div style={{ float: "center", marginLeft: "30px"}}>{m.post}</div>
                 </div>
-              </p>
             </div>
           ))
         : null}
@@ -102,31 +100,40 @@ function Profile({ loggedIn }) {
 
   return (
     <div className="container-fluid padding">
+        <div className="row">
+          <div className="col-3"></div>
+          <div className="col-6 text-center">
+            <h2 className="mt-2">Profile Page</h2>
+            <h5>Profile name: {user.username}</h5>
+            <img
+              style={{ height: "150px", width: "150px" }}
+              src={url}
+              alt="firebase"
+            />
+            <h5 className="mt-2">Edit profile picture</h5>
+            <input
+              className="text-center"
+              type="file"
+              onChange={handleChange}
+            />
+            <br />
+            <button className="mt-2 mb-2 btn btn-dark" onClick={handleUpload}>
+              Upload
+            </button>
+            <br />
+            <progress className="text-center" value={progress} max="100" />
+            <div className="errorMsg">{errormsg}</div>
+            <CreatePasswordModal />
+          </div>
+        </div>
+        <div className="col-3"></div>
       <div className="row">
         <div className="col-3"></div>
         <div className="col-6 text-center">
-          <h2 className="mt-2">Profile Page</h2>
-          <h3 className="mt-2">My posts:</h3>
+          <h3 className="mt-2">My posts</h3>
           {toShow}
-          <h3>Profile name: {user.username}</h3>
-          <div>
-            <div className="col-3"></div>
-            <div className="row">
-              <div className="col-3"></div>
-              <div className="col-6 text-center">
-              <img style={{ height: "150px", width: "150px" }} src={url} alt="firebase"/>
-                <h5 className="mt-2">Change profile picture</h5>
-                <input className="text-center" type="file" onChange={handleChange} />
-                <br/>
-                <button className="mt-2" onClick={handleUpload}>Upload</button>
-                <progress className="text-center" value={progress} max="100" />
-                <p>{errormsg}</p>
-                <CreatePasswordModal />
-              </div>
-            </div>
-            <div className="col-3"></div>
-          </div>
         </div>
+        <div className="col-3"></div>
       </div>
     </div>
   );

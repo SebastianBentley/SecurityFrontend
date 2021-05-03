@@ -40,7 +40,7 @@ function DoLogin({ loggedIn, setLoggedIn, goHome }) {
           <div className="row">
             <div className="col-3"></div>
             <div className="col-6 text-center">
-              <button className="mt-5 btn btn-primary" onClick={logout}>Logout</button>
+              <button className="mt-5 btn btn-dark" onClick={logout}>Logout</button>
             </div>
             <div className="col-3"></div>
           </div>
@@ -95,19 +95,22 @@ function LogIn({ login }) {
             <br />
             <input className="mt-2" placeholder="Password" id="password" type="password" />
             <br />
-            <div className="newcaptcha">
+            <div className="newcaptcha mt-2 mb-2">
               <ReCAPTCHA
                 ref={recaptchaRef}
                 sitekey="6Ld77oUaAAAAADoXeVdhtPWc6WlwkbxKSWsm2T8Q"
                 onChange={confirmCaptcha}
               />
             </div>
-            <button className="btn btn-primary" onClick={performLogin}>
+            <br />
+            <button className="btn btn-dark" onClick={performLogin}>
               Login
             </button>
           </form>
           <CreateModal />
+          <div className="errorMsg">
           {loginErrorMsg}
+          </div>
           <div className="col-3"></div>
         </div>
       </div>
