@@ -1,6 +1,7 @@
 import apiFacade from "../api/postFacade";
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
+import ChatBubbleIcon from "@material-ui/icons/ChatBubble"
 import jwt_decode from "jwt-decode";
 import loginFacade from "../api/userFacade.js";
 
@@ -57,17 +58,25 @@ export default function Home({ loggedIn }) {
       {" "}
       {dataFromServer.length > 0
         ? dataFromServer.map((m, index) => (
-            <div key={index}>
-              <div style={{ border: "1px solid grey", padding: "10px", borderRadius: "20px", marginTop: "15px"}}>
-                <div style={{ float: "right"}}>{m.date}</div>
-                <div style={{ float: "left", marginBottom: "5px"}}>Post by: {m.username}</div>
-                <div style={{ marginLeft: "30px"}}>{m.post}</div>
-                </div>
+          <div key={index}>
+            <div className="post">
+
+              <div className="postUsername">{m.username}</div>
+              <div className="postText">{m.post}</div>
+              <div style={{ float: "right" }}>{m.date}</div>
+              {user.roles === "user" ? (
+                <button
+                  type="submit"
+                  onClick={() => console.log("lol")}
+                  className="btn btn-success mr-2 deleteBtn"
+                ><ChatBubbleIcon /></button>
+              ) : ("")}
+
               {user.roles === "admin" ? (
                 <button
                   type="submit"
                   onClick={() => apiFacade.deletePost(m.id).then(handleDelete)}
-                  className="btn btn-danger mt-2"                 
+                  className="btn btn-danger deleteBtn"
                 >
                   <DeleteIcon />
                 </button>
@@ -75,7 +84,8 @@ export default function Home({ loggedIn }) {
                 ""
               )}
             </div>
-          ))
+          </div>
+        ))
         : null}
     </div>
   ) : (
@@ -89,30 +99,39 @@ export default function Home({ loggedIn }) {
         <div className="col-6 text-center">
           <h2 className="mt-5">Forum posts</h2>
           <hr></hr>
-          <h4 className="mt-5">Login to post</h4>
-          <div className="form-group">
-            <textarea
-              className="form-control"
-              id="exampleFormControlTextarea1"
-              rows="3"
-              onChange={handlePostChange}
-              value={userPost}
-            ></textarea>
-          </div>
-          <select name="Category" id="category" onClick={handleCategory}>
-            <option value="sport">Sport</option>
-            <option value="news">News</option>
-            <option value="social">Social</option>
-            <option value="wealth">Wealth</option>
-            <option value="gaming">Gaming</option>
-          </select>
-          <button
-            type="button"
-            className="text-center btn btn-primary ml-2"
-            onClick={handleSubmit}
-          >
-            Post
-          </button>
+
+          {user.roles === "user" ? (
+            <div className="postBox">
+              <h4>A penny for your thots?</h4>
+              <div className="form-group">
+                <textarea
+                  className="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  onChange={handlePostChange}
+                  value={userPost}
+                ></textarea>
+                <p>{userPost.length}/280</p>
+              </div>
+              <select className="btn btn-light rightBtn" name="Category" id="category" onClick={handleCategory}>
+                <option value="sport">Sport</option>
+                <option value="news">News</option>
+                <option value="social">Social</option>
+                <option value="wealth">Wealth</option>
+                <option value="gaming">Gaming</option>
+              </select>
+              <button
+                type="button"
+                className="text-center btn btn-dark ml-2 rightBtn"
+                onClick={handleSubmit}
+              >
+                Post
+              </button>
+            </div>
+          ) : (
+            <h4 className="mt-5">Login to post</h4>
+          )}
+
           {toShow}
           <div className="col-3"></div>
         </div>

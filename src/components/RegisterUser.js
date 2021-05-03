@@ -39,7 +39,7 @@ function CreateModal() {
                 <button
                     color="primary"
                     size="m"
-                    className="mr-auto"
+                    className="mr-auto btn btn-warning"
                     onClick={handleShow}
                 >
                     Register

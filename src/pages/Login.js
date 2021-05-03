@@ -38,12 +38,12 @@ function DoLogin({ loggedIn, setLoggedIn, goHome }) {
         <div>
           <LoggedIn loggedIn={loggedIn} />
           <div className="row">
-          <div className="col-3"></div>
-          <div className="col-6 text-center">
-          <button className="mt-5 btn btn-primary" onClick={logout}>Logout</button>
+            <div className="col-3"></div>
+            <div className="col-6 text-center">
+              <button className="mt-5 btn btn-primary" onClick={logout}>Logout</button>
+            </div>
+            <div className="col-3"></div>
           </div>
-          <div className="col-3"></div>
-        </div>
         </div>
       )}{" "}
     </div>
@@ -85,20 +85,32 @@ function LogIn({ login }) {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={onSubmit} onChange={onChange}>
-        <input placeholder="User Name" id="username" />
-        <input placeholder="Password" id="password" type="password"/>
-        <ReCAPTCHA
-          ref={recaptchaRef}
-          sitekey="6Ld77oUaAAAAADoXeVdhtPWc6WlwkbxKSWsm2T8Q"
-          onChange={confirmCaptcha}
-        />
-        <button onClick={performLogin}>Login</button>
-      </form>
-      <CreateModal />
-      {loginErrorMsg}
+    <div className="container-fluid padding">
+      <div className="row">
+        <div className="col-3"></div>
+        <div className="col-6 text-center">
+          <h2 className="text-center mb-2 mt-5">Login</h2>
+          <form onSubmit={onSubmit} onChange={onChange}>
+            <input placeholder="User Name" id="username" />
+            <br />
+            <input className="mt-2" placeholder="Password" id="password" type="password" />
+            <br />
+            <div className="newcaptcha">
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey="6Ld77oUaAAAAADoXeVdhtPWc6WlwkbxKSWsm2T8Q"
+                onChange={confirmCaptcha}
+              />
+            </div>
+            <button className="btn btn-primary" onClick={performLogin}>
+              Login
+            </button>
+          </form>
+          <CreateModal />
+          {loginErrorMsg}
+          <div className="col-3"></div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -16,7 +16,7 @@ function App() {
     history.push("/");
   };
   return (
-    <div>
+    <div className="background">
       <Header
         loginMsg={isLoggedIn ? "Profile" : "Login"}
         isLoggedIn={isLoggedIn}

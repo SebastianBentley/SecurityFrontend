@@ -7,6 +7,10 @@ export default function Header({ isLoggedIn, loginMsg }) {
     return (
         <ul className="header">
             <li>
+                <h2 className="title">Sebsen.dk</h2>
+            </li>
+            
+            <li>
                 <NavLink exact activeClassName="active" to="/">Home</NavLink>
             </li>
 
