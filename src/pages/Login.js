@@ -76,6 +76,8 @@ function LogIn({ login }) {
   };
 
   const confirmCaptcha = () => {
+    const res = recaptchaRef.current.getValue()
+    localStorage.setItem("reres", res)
     setCptcnfrm(true);
   };
   const recaptchaRef = React.createRef();

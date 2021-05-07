@@ -21,13 +21,15 @@ function apiFacade() { /* Insert utility-methods from a latter step (d) here (RE
     }
     const logout = () => {
         localStorage.removeItem("jwtToken");
+        localStorage.removeItem("reres")
     }
 
 
     const login = (user, password) => {
         const options = makeOptions("POST", true, {
             username: user,
-            password: password
+            password: password,
+            reres: localStorage.getItem("reres")
         });
         return fetch(URL + "/api/login", options).then(handleHttpErrors).then(res => {
             setToken(res.token)
