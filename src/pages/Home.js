@@ -4,9 +4,11 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble"
 import jwt_decode from "jwt-decode";
 import loginFacade from "../api/userFacade.js";
-
+import UserProfile from "../components/UserProfile.js"
 
 export default function Home({ loggedIn }) {
+  const [showProfile, setShow] = useState(false)
+  const [username, setUserName] = useState("unnamed")
   const [dataFromServer, setDataFromServer] = useState([]);
   const [userPost, setUserPost] = useState("");
   const [user, setUser] = useState("");
@@ -53,6 +55,11 @@ export default function Home({ loggedIn }) {
     }
   }, [loggedIn]);
 
+  function handleUsername(username) {
+    setUserName(username)
+    setShow(true)
+  }
+
   const toShow = dataFromServer ? (
     <div>
       {" "}
@@ -61,7 +68,7 @@ export default function Home({ loggedIn }) {
           <div key={index}>
             <div className="post">
 
-              <div className="postUsername">{m.username}</div>
+              <div className="postUsername"><p onClick={() => handleUsername(m.username)} className="userName">{m.username}</p></div>
               <div className="postText">{m.post}</div>
               <div style={{ float: "right" }}>{m.date}</div>
               {user.roles === "user" ? (
@@ -133,7 +140,7 @@ export default function Home({ loggedIn }) {
           )}
 
           {toShow}
-          <div className="col-3"></div>
+          <div className="col-3"><UserProfile username={username} showProfile={showProfile}/></div>
         </div>
       </div>
     </div>

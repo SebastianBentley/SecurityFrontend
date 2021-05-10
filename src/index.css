@@ -35,6 +35,11 @@ em {
   
 }
 
+.userName {
+  cursor: pointer;
+}
+.userName:hover{text-decoration: underline}
+
 .logo {
   height: 100%;
   width: 100%;
