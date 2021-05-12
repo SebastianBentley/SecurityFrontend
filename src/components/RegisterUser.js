@@ -6,7 +6,6 @@ import "./registerstyles.css";
 
 function CreateModal() {
     const [showModal, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [message, setMessage] = useState(null);

@@ -3,16 +3,31 @@ import React, { useState, useEffect } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble"
 import jwt_decode from "jwt-decode";
+import { Modal } from "react-bootstrap";
 import loginFacade from "../api/userFacade.js";
 import UserProfile from "../components/UserProfile.js"
 
 export default function Home({ loggedIn }) {
+  const [showModal, setShowComment] = useState(false);
   const [showProfile, setShow] = useState(false)
   const [username, setUserName] = useState("unnamed")
   const [dataFromServer, setDataFromServer] = useState([]);
+  const [commentsFromServer, setCommentsFromServer] = useState([]);
   const [userPost, setUserPost] = useState("");
+  const [userComment, setUserComment] = useState("");
   const [user, setUser] = useState("");
   const [category, setCategory] = useState("sport");
+  const [postID, setPostID] = useState("");
+
+  const handleClose = () => setShowComment(false);
+
+  const handleShow = (postid) => { 
+  setShowComment(true)
+  setPostID(postid)
+  apiFacade.getComments(postid).then((data) => {
+    setCommentsFromServer(data);
+  })
+  }
 
   useEffect(() => {
     apiFacade.getPosts().then((data) => {
@@ -47,6 +62,22 @@ export default function Home({ loggedIn }) {
     setUserPost("");
   }
 
+  function postComment(event) {
+    event.preventDefault();
+    apiFacade.addComment(user.username, userComment, postID).then(() => {
+      apiFacade.getComments(postID).then((data) => {
+        setCommentsFromServer(data);
+      })
+    });
+    setUserComment("");
+  }
+
+  function handleCommentChange(event) {
+    event.preventDefault();
+    const value = event.target.value;
+    setUserComment(value);
+  }
+
   useEffect(() => {
     if (loggedIn) {
       const token = loginFacade.getToken();
@@ -60,12 +91,29 @@ export default function Home({ loggedIn }) {
     setShow(true)
   }
 
+  const showComments = commentsFromServer ? ( 
+    <div>
+      {" "}
+       {commentsFromServer.length > 0 
+       ? commentsFromServer.map((c, index) => (
+         <div key={index}>
+           <div className="comments">
+           <div className="commentsUsername">{c.username}</div>  
+           <div className="commentsPost">{c.post}</div>
+           <div className="commentsDate">{c.date}</div>
+           <br/>
+           </div>
+         </div>
+       )) : null}
+    </div>
+) : ("") 
+
   const toShow = dataFromServer ? (
     <div>
       {" "}
       {dataFromServer.length > 0
         ? dataFromServer.map((m, index) => (
-          <div key={index}>
+          <div key={index} id={m.id}>
             <div className="post">
 
               <div className="postUsername"><p onClick={() => handleUsername(m.username)} className="userName">{m.username}</p></div>
@@ -73,12 +121,13 @@ export default function Home({ loggedIn }) {
               <div style={{ float: "right" }}>{m.date}</div>
               {user.roles === "user" ? (
                 <button
+                  id={m.id}
                   type="submit"
-                  onClick={() => console.log("lol")}
+                  onClick={() => handleShow(m.id)}
                   className="btn btn-success mr-2 deleteBtn"
                 ><ChatBubbleIcon /></button>
               ) : ("")}
-
+  
               {user.roles === "admin" ? (
                 <button
                   type="submit"
@@ -120,7 +169,12 @@ export default function Home({ loggedIn }) {
                 ></textarea>
                 <p>{userPost.length}/280</p>
               </div>
-              <select className="btn btn-light rightBtn" name="Category" id="category" onClick={handleCategory}>
+              <select
+                className="btn btn-light rightBtn"
+                name="Category"
+                id="category"
+                onClick={handleCategory}
+              >
                 <option value="sport">Sport</option>
                 <option value="news">News</option>
                 <option value="social">Social</option>
@@ -140,9 +194,31 @@ export default function Home({ loggedIn }) {
           )}
 
           {toShow}
-          <div className="col-3"><UserProfile username={username} showProfile={showProfile}/></div>
+          <div className="col-3">
+            <UserProfile username={username} showProfile={showProfile} />
+          </div>
         </div>
       </div>
+      <>
+        <Modal className="full_modal" show={showModal} onHide={handleClose}>
+          <Modal.Header closeButton={true} className="modal_header">
+            <Modal.Title>Comments</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="modal_header">
+            <div>
+              <form onChange={handleCommentChange}>
+                <input className="input" placeholder="Comment" id="comment"/>
+              </form>
+              <button color="primary" size="m" className="mr-auto btn btn-dark" onClick={postComment}> Comment </button>
+            </div>
+            <br/>
+            {showComments}
+          </Modal.Body>
+          <Modal.Footer className="modal_footer">
+            <button color="primary" size="m" className="modal_button btn btn-dark" onClick={handleClose}>Close</button>
+          </Modal.Footer>
+        </Modal>
+      </>
     </div>
   );
 }

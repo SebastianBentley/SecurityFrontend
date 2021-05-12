@@ -20,6 +20,38 @@ function getPosts() {
     });
 }
 
+function getComments(id) {
+  return fetch(SERVER_URL + "/api/post/all-comments/" + id)
+    .then(handleHttpErrors)
+    .catch((err) => {
+      if (err.status) {
+        err.fullError.then((e) => console.log(e.message));
+      } else {
+        console.log("Network error");
+      }
+    });
+}
+
+function addComment(username, comContent, postID) {
+  const options = makeOptions("POST", true, {
+    username,
+    comContent,
+    postID,
+  });
+
+  return fetch(SERVER_URL + "/api/post/add-comment", options)
+  .then(handleHttpErrors)
+  .catch((err) => {
+    console.log(err);
+    if (err.status) {
+      err.fullError.then((e) => console.log(e.message));
+    } else {
+      console.log("Network error");
+    }
+  });
+}
+
+
 function getCategoryPosts(category) {
   return fetch(SERVER_URL + "/api/post/category/" + category)
     .then(handleHttpErrors)
@@ -40,7 +72,7 @@ function addPost(content, username, category) {
     category,
   });
 
-  return fetch(SERVER_URL + "/api/post/add-post", options)
+ return fetch(SERVER_URL + "/api/post/add-post", options)
     .then(handleHttpErrors)
     .catch((err) => {
       console.log(err);
@@ -83,6 +115,8 @@ function getUserPosts(name) {
 
 const postFacade = {
   getPosts,
+  getComments,
+  addComment,
   getCategoryPosts,
   addPost,
   deletePost,

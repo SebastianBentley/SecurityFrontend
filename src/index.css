@@ -75,6 +75,19 @@ em {
   word-wrap: break-word;
 }
 
+.comments {
+  word-wrap: break-word;
+}
+
+.commentsUsername{
+  font-weight: bold;
+}
+
+.commentsDate{
+  font-weight: italic;
+  color: grey;
+}
+
 
 .postBox {
   padding: 15px;
