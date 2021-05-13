@@ -1,7 +1,10 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/storage'
+
+import {API_KEY} from "../utils/settings";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDZjB-IdJyRr0vCLojy8QMoLPQf9paD1oM",
+    apiKey: API_KEY,
     authDomain: "image-react-52fcf.firebaseapp.com",
     projectId: "image-react-52fcf",
     storageBucket: "image-react-52fcf.appspot.com",

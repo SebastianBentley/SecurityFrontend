@@ -32,9 +32,8 @@ function getComments(id) {
     });
 }
 
-function addComment(username, comContent, postID) {
+function addComment(comContent, postID) {
   const options = makeOptions("POST", true, {
-    username,
     comContent,
     postID,
   });
@@ -65,9 +64,8 @@ function getCategoryPosts(category) {
     });
 }
 
-function addPost(content, username, category) {
+function addPost(content, category) {
   const options = makeOptions("POST", true, {
-    username,
     content,
     category,
   });

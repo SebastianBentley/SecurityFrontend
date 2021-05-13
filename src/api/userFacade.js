@@ -74,9 +74,8 @@ function apiFacade() { /* Insert utility-methods from a latter step (d) here (RE
         return fetch(URL + "/api/login/registerUser", options).then(handleHttpErrors);
     }
 
-    const changePassword = (name, password, newPassword1, newPassword2) => {
+    const changePassword = (password, newPassword1, newPassword2) => {
         const options = makeOptions("PUT", true, {
-            username: name,
             password: password,
             newPassword1: newPassword1,
             newPassword2: newPassword2

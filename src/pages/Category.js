@@ -44,14 +44,6 @@ export default function Categories({ loggedIn }) {
                 <div className="postUsername">{m.username}</div>
                 <div className="postText">{m.post}</div>
                 <div style={{ float: "right"}}>{m.date}</div>
-                {user.roles === "user" ? (
-                <button
-                  type="submit"
-                  onClick={() => console.log("lol")}
-                  className="btn btn-success mr-2 deleteBtn"
-                ><ChatBubbleIcon /></button>
-              ) : ("")}
-                
               {user.roles === "admin" ? (
                 <button
                   type="submit"

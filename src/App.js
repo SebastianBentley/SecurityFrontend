@@ -7,6 +7,7 @@ import Category from "./pages/Category.js";
 import NoMatch from "./components/NoMatch.js";
 import Header from "./components/NavBar.js";
 import { Switch, Route, useHistory } from "react-router-dom";
+require('dotenv').config()
 
 
 function App() {

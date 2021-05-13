@@ -54,7 +54,7 @@ export default function Home({ loggedIn }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    apiFacade.addPost(userPost, user.username, category).then(() => {
+    apiFacade.addPost(userPost, category).then(() => {
       apiFacade.getPosts().then((data) => {
         setDataFromServer(data);
       });
@@ -64,7 +64,7 @@ export default function Home({ loggedIn }) {
 
   function postComment(event) {
     event.preventDefault();
-    apiFacade.addComment(user.username, userComment, postID).then(() => {
+    apiFacade.addComment(userComment, postID).then(() => {
       apiFacade.getComments(postID).then((data) => {
         setCommentsFromServer(data);
       })
